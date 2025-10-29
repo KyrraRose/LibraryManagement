@@ -103,6 +103,25 @@ public class Library {
         }
         return availableMovies;
     }
+    //Magazine Feature
+    public List<Magazine> getAllMagazines() {
+        List<Magazine> magazines = new ArrayList<>();
+        for (Item item : items.values()) {
+            if (item instanceof Magazine) {
+                magazines.add((Magazine) item);
+            }
+        }
+        return magazines;
+    }
+    public List<Magazine> getAvailableMagazines() {
+        List<Magazine> availableMagazines = new ArrayList<>();
+        for (Item item : items.values()) {
+            if (item instanceof Magazine && item.isAvailable()) {
+                availableMagazines.add((Magazine) item);
+            }
+        }
+        return availableMagazines;
+    }
 
 
     // Member management
@@ -209,6 +228,17 @@ public class Library {
             }
         }
         return movieResults;
+    }
+
+    public List<Magazine> searchByPublisher(String publisher) {
+        List<Magazine> magazineResults = new ArrayList<>();
+        List<Item> allResults = searchByCreator(publisher);
+        for (Item item : allResults) {
+            if (item instanceof Magazine) {
+                magazineResults.add((Magazine) item);
+            }
+        }
+        return magazineResults;
     }
 
     // Borrow/Return operations
