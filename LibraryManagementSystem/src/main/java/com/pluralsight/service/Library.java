@@ -84,6 +84,26 @@ public class Library {
         }
         return availableBooks;
     }
+    //Movie Features
+    public List<Movie> getAllMovies() {
+        List<Movie> movies = new ArrayList<>();
+        for (Item item : items.values()) {
+            if (item instanceof Movie) {
+                movies.add((Movie) item);
+            }
+        }
+        return movies;
+    }
+    public List<Movie> getAvailableMovies() {
+        List<Movie> availableMovies = new ArrayList<>();
+        for (Item item : items.values()) {
+            if (item instanceof Movie && item.isAvailable()) {
+                availableMovies.add((Movie) item);
+            }
+        }
+        return availableMovies;
+    }
+
 
     // Member management
     public boolean addMember(Member member) {
@@ -168,6 +188,16 @@ public class Library {
             }
         }
         return bookResults;
+    }
+    public List<Movie> searchByDirector(String director) {
+        List<Movie> movieResults = new ArrayList<>();
+        List<Item> allResults = searchByCreator(director);
+        for (Item item : allResults) {
+            if (item instanceof Movie) {
+                movieResults.add((Movie) item);
+            }
+        }
+        return movieResults;
     }
 
     // Borrow/Return operations

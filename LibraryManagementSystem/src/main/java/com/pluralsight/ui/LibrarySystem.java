@@ -170,24 +170,56 @@ public class LibrarySystem {
 
     // PLACEHOLDER MOVIE MENU (Students will implement)
     private void movieMenu() {
-        System.out.println("\n=== Movie Menu ===");
-        System.out.println("TODO: Movie menu implementation");
-        System.out.println("This menu should include:");
-        System.out.println("- View all movies");
-        System.out.println("- View available movies");
-        System.out.println("- Search movies by title");
-        System.out.println("- Search movies by director");
-        System.out.println("- Search movies by genre");
-        System.out.println("- Borrow movie");
-        System.out.println("- Return movie");
-        System.out.println("- Show movie duration");
-        System.out.println();
-        System.out.println("Press Enter to continue...");
-        scanner.nextLine();
+        boolean inMovieMenu = true;
+        while (inMovieMenu) {
+            System.out.println("\n=== Movie Menu ===");
+            System.out.println("1. View all movies");
+            System.out.println("2. View available movies");
+            System.out.println("3. Search movies by title");
+            System.out.println("4. Search movies by director");
+            System.out.println("5. Search movies by genre");
+            System.out.println("6. Borrow movie");
+            System.out.println("7. Return movie");
+            System.out.println("8. Show movie duration");
+            System.out.println();
+            System.out.println("Press Enter to continue...");
+            scanner.nextLine();
 
-        // TODO: Students should implement movie-specific functionality here
-        // Similar structure to bookMenu() but for Movie objects
-        // Should handle Movie-specific fields like duration
+            // TODO: Students should implement movie-specific functionality here
+            // Similar structure to bookMenu() but for Movie objects
+            // Should handle Movie-specific fields like duration
+            int choice = getChoice();
+            logger.debug("User selected book menu option: " + choice);
+
+            switch (choice) {
+                case 1:
+                    viewAllMovies();
+                    break;
+                case 2:
+                    viewAvailableMovies();
+                    break;
+                case 3:
+                    searchMovies();
+                    break;
+                case 4:
+                    searchMoviesByDirector();
+                    break;
+                case 5:
+                    searchMoviesByGenre();
+                    break;
+                case 6:
+                    borrowSpecificMovie();
+                    break;
+                case 7:
+                    returnSpecificMovie();
+                    break;
+                case 8:
+                    inMovieMenu = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
     }
 
     // PLACEHOLDER MAGAZINE MENU (Students will implement)
@@ -226,6 +258,19 @@ public class LibrarySystem {
         }
     }
 
+    private void viewAllMovies() {
+        List<Movie> movies = library.getAllMovies();
+        if (movies.isEmpty()) {
+            System.out.println("No movies in the library.");
+            return;
+        }
+
+        System.out.println("\n=== All Movies ===");
+        for (Movie movie : movies) {
+            System.out.println(movie);
+        }
+    }
+
     private void viewAvailableBooks() {
         List<Book> availableBooks = library.getAvailableBooks();
         if (availableBooks.isEmpty()) {
@@ -236,6 +281,19 @@ public class LibrarySystem {
         System.out.println("\n=== Available Books ===");
         for (Book book : availableBooks) {
             System.out.println(book);
+        }
+    }
+
+    private void viewAvailableMovies() {
+        List<Movie> availableMovies = library.getAvailableMovies();
+        if (availableMovies.isEmpty()) {
+            System.out.println("No books currently available.");
+            return;
+        }
+
+        System.out.println("\n=== Available Movies ===");
+        for (Movie movie : availableMovies) {
+            System.out.println(movie);
         }
     }
 
@@ -265,6 +323,21 @@ public class LibrarySystem {
             System.out.println("\n=== Books by " + author + " ===");
             for (Book book : results) {
                 System.out.println(book);
+            }
+        }
+    }
+
+    private void searchBooksByDirector() {
+        System.out.print("Enter director name: ");
+        String director = scanner.nextLine();
+
+        List<Movie> results = library.searchByDirector(director);
+        if (results.isEmpty()) {
+            System.out.println("No books found by director: " + director);
+        } else {
+            System.out.println("\n=== Books by " + director + " ===");
+            for (Movie movie : results) {
+                System.out.println(movie);
             }
         }
     }
