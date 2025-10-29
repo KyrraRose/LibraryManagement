@@ -13,11 +13,18 @@ public class Library {
     private Map<String, Member> members;
     private static int memberCounter = 1000;
     private Logger logger = Logger.getInstance();
+    private static Library instance;
 
-    public Library() {
+    private Library() {
         this.items = new HashMap<>();
         this.members = new HashMap<>();
         logger.info("Library system initialized");
+    }
+    public static Library getInstance(){
+        if (instance == null){
+            instance = new Library();
+        }
+        return instance;
     }
 
     // Item management
