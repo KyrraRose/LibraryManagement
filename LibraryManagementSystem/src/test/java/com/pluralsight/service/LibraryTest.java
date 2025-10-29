@@ -6,6 +6,9 @@ import com.pluralsight.model.Magazine;
 import com.pluralsight.model.Member;
 import com.pluralsight.model.Item;
 import org.junit.jupiter.api.*;
+
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LibraryTest {

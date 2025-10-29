@@ -325,7 +325,7 @@ public class LibrarySystem {
         System.out.print("Enter search term (title, creator, genre, or ID): ");
         String query = scanner.nextLine();
 
-        List<Item> results = library.searchItems(query)
+        List<Item> results = library.searchItems(query);
 
         if (results.isEmpty()) {
             System.out.println("No items found matching your search.");

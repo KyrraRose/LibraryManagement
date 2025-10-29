@@ -4,14 +4,14 @@ public class Magazine extends Item {
     private String issueNumber;
     private String publicationDate;
 
-    public Magazine(int magazineId, String title, String publisher, String genre,
+    public Magazine(String magazineId, String title, String publisher, String genre,
                     String issueNumber, String publicationDate) {
         super(magazineId, title, publisher, genre);
         this.issueNumber = issueNumber;
         this.publicationDate = publicationDate;
     }
 
-    public Magazine(int magazineId, String title, String publisher, String genre,
+    public Magazine(String magazineId, String title, String publisher, String genre,
                     String issueNumber, String publicationDate, boolean isAvailable) {
         super(magazineId, title, publisher, genre, isAvailable);
         this.issueNumber = issueNumber;

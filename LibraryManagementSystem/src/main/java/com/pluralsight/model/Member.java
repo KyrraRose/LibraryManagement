@@ -24,6 +24,11 @@ public class Member {
 
     // Book management
     public boolean borrowBook(String isbn) {
+        for (String borrowedIsbn : borrowedBooks){
+            if (borrowedIsbn.equals(isbn)){
+                return false;
+            }
+        }
         borrowedBooks.add(isbn);
         return true;
     }
