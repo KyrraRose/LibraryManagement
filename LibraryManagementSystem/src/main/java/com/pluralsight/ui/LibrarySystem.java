@@ -180,14 +180,10 @@ public class LibrarySystem {
             System.out.println("5. Search movies by genre");
             System.out.println("6. Borrow movie");
             System.out.println("7. Return movie");
-            System.out.println("8. Show movie duration");
+            System.out.println("8. Back to Main Menu");
             System.out.println();
-            System.out.println("Press Enter to continue...");
-            scanner.nextLine();
+            System.out.print("Enter your choice: ");
 
-            // TODO: Students should implement movie-specific functionality here
-            // Similar structure to bookMenu() but for Movie objects
-            // Should handle Movie-specific fields like duration
             int choice = getChoice();
             logger.debug("User selected book menu option: " + choice);
 
@@ -219,6 +215,8 @@ public class LibrarySystem {
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
+            System.out.println("Press Enter to continue...");
+            scanner.nextLine();
         }
     }
 
@@ -311,6 +309,20 @@ public class LibrarySystem {
             }
         }
     }
+    private void searchMovies() {
+        System.out.print("Enter search term for movies (title, director, genre, or ID): ");
+        String query = scanner.nextLine();
+
+        List<Movie> results = library.searchMovies(query);
+        if (results.isEmpty()) {
+            System.out.println("No books found matching your search.");
+        } else {
+            System.out.println("\n=== Movie Search Results ===");
+            for (Movie movie : results) {
+                System.out.println(movie);
+            }
+        }
+    }
 
     private void searchBooksByAuthor() {
         System.out.print("Enter author name: ");
@@ -327,7 +339,8 @@ public class LibrarySystem {
         }
     }
 
-    private void searchBooksByDirector() {
+
+    private void searchMoviesByDirector() {
         System.out.print("Enter director name: ");
         String director = scanner.nextLine();
 
@@ -356,6 +369,20 @@ public class LibrarySystem {
             }
         }
     }
+    private void searchMoviesByGenre() {
+        System.out.print("Enter genre: ");
+        String genre = scanner.nextLine();
+
+        List<Item> results = library.searchByGenre(genre);
+        if (results.isEmpty()) {
+            System.out.println("No movies found in genre: " + genre);
+        } else {
+            System.out.println("\n=== Movies in " + genre + " ===");
+            for (Item movie : results) {
+                System.out.println(movie);
+            }
+        }
+    }
 
     private void borrowSpecificBook() {
         System.out.print("Enter member ID: ");
@@ -368,6 +395,20 @@ public class LibrarySystem {
             System.out.println("Book borrowed successfully!");
         } else {
             System.out.println("Unable to borrow book. Please check member ID, ISBN, and book availability.");
+        }
+    }
+
+    private void borrowSpecificMovie() {
+        System.out.print("Enter member ID: ");
+        String memberId = scanner.nextLine();
+
+        System.out.print("Enter movie ID: ");
+        String movieId = scanner.nextLine();
+
+        if (library.borrowMovie(memberId, movieId)) {
+            System.out.println("Movie borrowed successfully!");
+        } else {
+            System.out.println("Unable to borrow movie. Please check member ID, movie ID, and movie availability.");
         }
     }
 
@@ -386,6 +427,23 @@ public class LibrarySystem {
 
 
     }
+
+    private void returnSpecificMovie() {
+        System.out.print("Enter member ID: ");
+        String memberId = scanner.nextLine();
+
+        System.out.print("Enter movie ID: ");
+        String movieID = scanner.nextLine();
+
+        if (library.returnMovie(memberId, movieID)) {
+            System.out.println("Movie returned successfully!");
+        } else {
+            System.out.println("Unable to return movie. Please check member ID and movie ID.");
+        }
+
+
+    }
+
     private int getChoice() {
         try {
             return Integer.parseInt(scanner.nextLine());

@@ -179,6 +179,17 @@ public class Library {
         return bookResults;
     }
 
+    public List<Movie> searchMovies(String query) {
+        List<Movie> movieResults = new ArrayList<>();
+        List<Item> allResults = searchItems(query);
+        for (Item item : allResults) {
+            if (item instanceof Book) {
+                movieResults.add((Movie) item);
+            }
+        }
+        return movieResults;
+    }
+
     public List<Book> searchByAuthor(String author) {
         List<Book> bookResults = new ArrayList<>();
         List<Item> allResults = searchByCreator(author);
@@ -265,6 +276,14 @@ public class Library {
 
     public boolean returnBook(String memberId, String isbn) {
         return returnItem(memberId, isbn);
+    }
+
+    public boolean borrowMovie(String memberId, String movieId) {
+        return borrowItem(memberId, movieId);
+    }
+
+    public boolean returnMovie(String memberId, String movieId) {
+        return returnItem(memberId, movieId);
     }
 
     // File I/O operations
