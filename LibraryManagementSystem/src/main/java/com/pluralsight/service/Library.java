@@ -202,11 +202,22 @@ public class Library {
         List<Movie> movieResults = new ArrayList<>();
         List<Item> allResults = searchItems(query);
         for (Item item : allResults) {
-            if (item instanceof Book) {
+            if (item instanceof Movie) {
                 movieResults.add((Movie) item);
             }
         }
         return movieResults;
+    }
+
+    public List<Magazine> searchMagazines(String query) {
+        List<Magazine> magazineResults = new ArrayList<>();
+        List<Item> allResults = searchItems(query);
+        for (Item item : allResults) {
+            if (item instanceof Magazine) {
+                magazineResults.add((Magazine) item);
+            }
+        }
+        return magazineResults;
     }
 
     public List<Book> searchByAuthor(String author) {

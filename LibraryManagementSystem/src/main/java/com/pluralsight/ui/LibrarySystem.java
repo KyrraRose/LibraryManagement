@@ -184,7 +184,7 @@ public class LibrarySystem {
             System.out.print("Enter your choice: ");
 
             int choice = getChoice();
-            logger.debug("User selected book menu option: " + choice);
+            logger.debug("User selected movie menu option: " + choice);
 
             switch (choice) {
                 case 1:
@@ -235,11 +235,10 @@ public class LibrarySystem {
             System.out.println("7. Return magazine");
             System.out.println("8. Back to Main Menu");
             System.out.println();
-            System.out.println("Press Enter to continue...");
-            scanner.nextLine();
+            System.out.print("Enter your choice: ");
 
             int choice = getChoice();
-            logger.debug("User selected book menu option: " + choice);
+            logger.debug("User selected magazine menu option: " + choice);
 
             switch (choice) {
                 case 1:
@@ -251,22 +250,20 @@ public class LibrarySystem {
                 case 3:
                     searchMagazines();
                     break;
+
                 case 4:
-                    searchMagazinesByTitle();
-                    break;
-                case 5:
                     searchMagazinesByPublisher();
                     break;
-                case 6:
+                case 5:
                     searchMagazinesByGenre();
                     break;
-                case 7:
+                case 6:
                     borrowSpecificMovie();
                     break;
-                case 8:
+                case 7:
                     returnSpecificMovie();
                     break;
-                case 9:
+                case 8:
                     inMagazineMenu = false;
                     break;
                 default:
@@ -377,11 +374,26 @@ public class LibrarySystem {
 
         List<Movie> results = library.searchMovies(query);
         if (results.isEmpty()) {
-            System.out.println("No books found matching your search.");
+            System.out.println("No movies found matching your search.");
         } else {
             System.out.println("\n=== Movie Search Results ===");
             for (Movie movie : results) {
                 System.out.println(movie);
+            }
+        }
+    }
+
+    private void searchMagazines() {
+        System.out.print("Enter search term for magazines (title, publisher, genre, or MagID): ");
+        String query = scanner.nextLine();
+
+        List<Magazine> results = library.searchMagazines(query);
+        if (results.isEmpty()) {
+            System.out.println("No magazines found matching your search.");
+        } else {
+            System.out.println("\n=== Magazine Search Results ===");
+            for (Magazine magazine : results) {
+                System.out.println(magazine);
             }
         }
     }
@@ -457,6 +469,21 @@ public class LibrarySystem {
             System.out.println("\n=== Movies in " + genre + " ===");
             for (Item movie : results) {
                 System.out.println(movie);
+            }
+        }
+    }
+
+    private void searchMagazinesByGenre() {
+        System.out.print("Enter genre: ");
+        String genre = scanner.nextLine();
+
+        List<Item> results = library.searchByGenre(genre);
+        if (results.isEmpty()) {
+            System.out.println("No magazines found in genre: " + genre);
+        } else {
+            System.out.println("\n=== Magazines in " + genre + " ===");
+            for (Item magazine : results) {
+                System.out.println(magazine);
             }
         }
     }
